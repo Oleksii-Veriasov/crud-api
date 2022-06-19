@@ -13,7 +13,7 @@ class UsersService {
   }
 
   async apiCreateUser(body: ICandidate): Promise<IUser> {
-    console.log("body:", body)
+    console.log("body:", body);
     let prepareUser = {
       id: uuidv4(),
       username: body.username,
@@ -25,9 +25,9 @@ class UsersService {
     return prepareUser;
   }
 
-  // async apiGetUserById(id: string): Promise<IUser> {
-  //   return  this.users.find((user: IUser) => user.id === id);
-  //      }
+  async apiGetUser(id: string): Promise<any> {
+    return this.users.find((user: IUser) => user.id === id);
+  }
 
   // async apiDeleteUser(id: string): Promise<IUser> {
   //   // ваш код

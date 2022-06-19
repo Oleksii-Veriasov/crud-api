@@ -1,8 +1,8 @@
 import "dotenv/config";
 import http from "http";
-// import os from "os";
-// import cluster from "cluster";
-// import { v4 as uuidv4 } from "uuid";
+import os from "os";
+import cluster from "cluster";
+import { v4 as uuidv4 } from "uuid";
 const PORT = process.env.PORT;
 
 console.log(PORT);
@@ -16,28 +16,39 @@ const userData = userService;
 console.log(userData);
 
 const server = http.createServer(async (req, res) => {
-  if (req.url === "/api/users" && req.method === "GET") {
-    const users = await userData.apiGetUsers();
-    //response headers
+  if (req.url?.startsWith("/api/users/") && req.method === "GET") {
+    console.log(req.url.split("/").at(-1));
+    let id: any = req.url.split("/").at(-1)
+    const userSearch = await userData.apiGetUser(id);
     res.writeHead(200, { "Content-Type": "application/json" });
-    //set the response
-
-    // res.write("Hi there, This is a Vanilla Node.js API");
-    //end the response
+    res.end(JSON.stringify(userSearch));
+  }
+   else if (req.url === "/api/users" && req.method === "GET") {
+    const users = await userData.apiGetUsers();
+    res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify(users));
-  } else if (req.url === "/api/users" && req.method === "POST") {
-    //response headers
-
+  } 
+  else if (req.url === "/api/users" && req.method === "POST") {
     let body: any = await getReqData(req);
     res.writeHead(200, { "Content-Type": "application/json" });
     console.log(body);
     const newUser = await userData.apiCreateUser(JSON.parse(body));
     console.log(JSON.stringify(userData));
+    res.end(newUser);
+  } else if (req.url === "/api/users" && req.method === "PUT") {
+    // let body: any = await getReqData(req);
     // res.writeHead(200, { "Content-Type": "application/json" });
-    //set the response
-    // res.write(body);
-    //end the response
-    res.end(body);
+    // console.log(body);
+    // const newUser = await userData.apiCreateUser(JSON.parse(body));
+    // console.log(JSON.stringify(userData));
+    // res.end(body);
+  } else if (req.url === "/api/users" && req.method === "DELETE") {
+    // let body: any = await getReqData(req);
+    // res.writeHead(200, { "Content-Type": "application/json" });
+    // console.log(body);
+    // const newUser = await userData.apiCreateUser(JSON.parse(body));
+    // console.log(JSON.stringify(userData));
+    // res.end(body);
   }
 
   // If no route present
