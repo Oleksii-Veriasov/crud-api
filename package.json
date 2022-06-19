@@ -1,0 +1,31 @@
+{
+  "name": "crud-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "nodemon ./src/index.ts",
+    "start:prod": "tsc && node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Oleksii-Veriasov/crud-api.git"
+  },
+  "author": "alx",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Oleksii-Veriasov/crud-api/issues"
+  },
+  "homepage": "https://github.com/Oleksii-Veriasov/crud-api#readme",
+  "devDependencies": {
+    "@types/uuid": "^8.3.4",
+    "nodemon": "^2.0.16",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "uuid": "^8.3.2"
+  }
+}
