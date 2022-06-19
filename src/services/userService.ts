@@ -30,7 +30,7 @@ class UsersService {
   }
 
   // async apiDeleteUser(id: string): Promise<IUser> {
-  //   // ваш код
+  //   
   // }
 
   // async apiUpdateUser(
