@@ -20,16 +20,17 @@ const server = http.createServer(async (req, res) => {
   if (req.url?.startsWith("/api/users/") && req.method === "GET") {
     console.log(req.url.split("/").at(-1));
     let id: any = req.url.split("/").at(-1);
+    console.log(uuidValidateV4(id));
     if (uuidValidateV4(id)) {
       const userSearch = await userData.apiGetUser(id);
       res.writeHead(200, { "Content-Type": "application/json" });
       res.end(JSON.stringify(userSearch));
     } else if (uuidValidateV4(id)) {
-      res.writeHead(400, {'Content-Type': 'text/plain'});
-      res.end("This userId is invalid");
-    } else {
-      res.writeHead(404, {'Content-Type': 'text/plain'});
+      res.writeHead(400, { "Content-Type": "text/plain" });
       res.end("This userId doesn't exist");
+    } else if (!uuidValidateV4(id)){
+      res.writeHead(404, { "Content-Type": "text/plain" });
+      res.end("This userId is invalid");
     }
   } else if (req.url === "/api/users" && req.method === "GET") {
     const users = await userData.apiGetUsers();
